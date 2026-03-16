@@ -3,9 +3,9 @@ from htmlnode import *
 class ParentNode(HtmlNode):
 
     def __init__(self,
-                 tag,
-                 children,
-                 props = None):
+                 tag: object,
+                 children: object,
+                 props: object = None) -> None:
         super().__init__(tag, None, children, props)
 
     def to_html(self):

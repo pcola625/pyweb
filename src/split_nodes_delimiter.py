@@ -22,7 +22,7 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             raise ValueError("No matching closing delimiter found - invalid Markdown syntax\n")
 
         for i in range(len(candidates)):
-            if candidates[i] == "":
+            if candidates[i] == "" or candidates[i] is None:
                 continue
             if i % 2 == 0:
                 split_list.append(TextNode(candidates[i], TextType.TEXT))

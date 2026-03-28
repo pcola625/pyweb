@@ -12,5 +12,24 @@ class TestExtractor(unittest.TestCase):
         matches = extract_markdown_links("This is text with a link [to boot dev](https://www.boot.dev)")
         self.assertListEqual([("to boot dev", "https://www.boot.dev")], matches)
 
+    def test_extract_title_simple(self):
+        example = "# This is a title"
+        title = extract_title(example)
+        self.assertEqual("This is a title", title)
+
+    def test_extract_title_too_many_hash(self):
+        example = "### This is a title"
+        try:
+            title = extract_title(example)
+        except ValueError as e:
+            self.assertIsInstance(e, ValueError)
+
+    def test_extract_title_too_few_hash(self):
+        example = "This is a title"
+        try:
+            title = extract_title(example)
+        except ValueError as e:
+            self.assertIsInstance(e, ValueError)
+
 if __name__ == "__main__":
     unittest.main()

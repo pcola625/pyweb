@@ -56,8 +56,8 @@ def text_node_to_html_node(text_node):
         case TextType.CODE:
             return LeafNode("code", text_node.text)
         case TextType.LINKS:
-            return LeafNode("a", text_node.text, {"href": f"{text_node.url}"})
+            return LeafNode("a", text_node.text, {"href":text_node.url})
         case TextType.IMG:
-            return LeafNode(tag="img", value="", props={"src":f"{text_node.url}", "alt":f"{text_node.text}"})
+            return LeafNode(tag="img", value="", props={"src":text_node.url, "alt":text_node.text})
         case _:
             return "Error: unsupported tag.\n I could assume you wanted blank text, but you know what happens when we ASSuME. \n" 

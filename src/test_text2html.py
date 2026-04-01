@@ -43,7 +43,7 @@ class TestTextToHTML(unittest.TestCase):
         node = TextNode("This node makes an image link", TextType.IMG, "http://smiley.gov/smiley.jpg")
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.tag, "img")
-        self.assertEqual(html_node.to_html(),'<img src="http://smiley.gov/smiley.jpg" alt="This node makes an image link">!</img>')
+        self.assertEqual(html_node.to_html(),'<img src="http://smiley.gov/smiley.jpg" alt="This node makes an image link"></img>')
 
 
 if __name__ == "__main__":

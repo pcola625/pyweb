@@ -2,18 +2,17 @@ from extractors import *
 from fyle_copier import *
 from markdown_to_html_node import markdown_to_html_node
 
-def generate_pages_r(from_path, template_path, dest_path):
+def generate_pages_r(from_path, template_path, dest_path, basepath):
 
     for file in os.listdir(from_path):
         if not os.path.isfile(os.path.join(from_path, file)):
             print(f"File {file} is directory, we need to go deeper")
-            generate_pages_r(os.path.join(from_path, file), template_path, os.path.join(dest_path, file))
+            generate_pages_r(os.path.join(from_path, file), template_path, os.path.join(dest_path, file), basepath)
         if file.endswith(".md"):
             from_path = from_path + "/" + file
-            generate_page(from_path, template_path, dest_path)
-
+            generate_page(from_path, template_path, dest_path, basepath)
     return
-def generate_page(from_path: object, template_path: object, dest_path: object) -> None:
+def generate_page(from_path: object, template_path: object, dest_path: object, basepath: object) -> None:
 
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
 
@@ -31,12 +30,15 @@ def generate_page(from_path: object, template_path: object, dest_path: object) -
         print(f"Read  {template_path}")
 
         le_content = markdown_to_html_node(md_content).to_html()
-        print(f" {le_content}")
+
         le_title = extract_title(md_content)
 
         template_content = template_content.replace("{{ Title }}", le_title)
         template_content = template_content.replace("{{ Content }}", le_content)
+        template_content = template_content.replace('href="/','href="'+ basepath)
+        template_content = template_content.replace('src="/', 'src="'+ basepath)
 
+        print(f" {template_content}")
         if not os.path.exists(dest_path):
             os.makedirs(dest_path)
 

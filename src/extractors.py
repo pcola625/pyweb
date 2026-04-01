@@ -10,12 +10,8 @@ def extract_markdown_links(text):
     return return_tuple
 
 def extract_title(markdown):
-    title = ""
-    pattern = r"^#([^#\n]|$)"
-
-    matches = re.findall(pattern, markdown, re.MULTILINE)
-    if not matches:
-        raise ValueError(f"Could not extract title from {markdown}")
-
-    title = markdown.split("#")[1].strip()
-    return title
+    lines = markdown.split("\n")
+    for line in lines:
+        if line.startswith("# "):
+            return line[2:]
+        raise ValueError("no title found")

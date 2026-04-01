@@ -1,1 +1,1 @@
-python3 src/main.py "/pyweb"
+python3 src/main.py "/pyweb/"
